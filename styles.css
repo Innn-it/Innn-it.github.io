@@ -38,6 +38,10 @@ h1 {
     margin-bottom: 10px;
 }
 
+h3 {
+    margin: 10px auto;
+}
+
 p {
     color: #666;
     margin-bottom: 20px;
