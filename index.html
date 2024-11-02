@@ -4,32 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Decode Quoted-Printable URL</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h3>Enter the quoted-printable encoded URL:</h3>
-    <textarea id="inputUrl" rows="5" cols="80" placeholder="Paste your quoted-printable URL here"></textarea>
-    <br><br>
-    <button onclick="decodeQuotedPrintable()">Decode URL</button>
-    <h3>Decoded UTF-8 URL:</h3>
-    <textarea id="outputUrl" rows="5" cols="80" readonly></textarea>
+    <div class="container">
+        <!-- Centered Logo -->
+        <img src="logo.png" alt="Logo" class="logo">
+
+        <!-- Title -->
+        <h1>URL Decoder Tool</h1>
+        
+        <!-- Description -->
+        <p>Enter the quoted-printable encoded URL below to decode it to UTF-8 format.</p>
+
+        <!-- Input Area -->
+        <textarea id="inputUrl" rows="5" cols="80" placeholder="Paste your quoted-printable URL here"></textarea>
+        
+        <!-- Decode Button -->
+        <button onclick="decodeQuotedPrintable()">Decode URL</button>
+        
+        <!-- Output Area -->
+        <h3>Decoded UTF-8 URL:</h3>
+        <textarea id="outputUrl" rows="5" cols="80" readonly></textarea>
+    </div>
 
     <script>
         function decodeQuotedPrintable() {
-            // Get the quoted-printable URL input
             let inputUrl = document.getElementById('inputUrl').value;
-
-            // Step 1: Remove all soft line breaks (where `=` appears at the end of a line followed by a newline)
-            inputUrl = inputUrl.replace(/=\r?\n/g, '');
-
-            // Step 2: Decode `=XX` sequences (where XX is a hex code)
-            let decodedUrl = inputUrl.replace(/=([A-Fa-f0-9]{2})/g, (match, hex) => {
-                return String.fromCharCode(parseInt(hex, 16));
-            });
-
-            // Step 3: Replace any lingering `=3D` with `=`
-            decodedUrl = decodedUrl.replace(/=3D/g, '=').replace(/=\r?\n/g, '');
-
-            // Display the decoded URL
+            inputUrl = inputUrl.replace(/=\r?\n/g, ''); // Remove soft line breaks
+            let decodedUrl = inputUrl.replace(/=([A-Fa-f0-9]{2})/g, (match, hex) => String.fromCharCode(parseInt(hex, 16)));
+            decodedUrl = decodedUrl.replace(/=3D/g, '=').replace(/=\r?\n/g, ''); // Convert lingering `=3D` to `=`
             document.getElementById('outputUrl').value = decodedUrl;
         }
     </script>
